@@ -7,9 +7,9 @@ var url = 'https://stocksnap.io';
 // 检查目录中是否存在 images 文件夹，如果没有就创建
 fs.mkdir('./images', function(err) {
    if(err) {
-       console.log('Directory creation success.');
-   } else {
        console.log('Directory already exists.');
+   } else {
+       console.log('Directory creation success.');
    }
 });
 
@@ -28,11 +28,10 @@ https.get(url, function(res) {
 });
 
 function getImage(url) {
-    var obj = path.parse(url);
-    var fn = obj.base;
-    var stream = fs.createWriteStream('./images/' + fn);
+    var imageName = path.parse(url).base;
+    var stream = fs.createWriteStream('./images/' + imageName);
     https.get(url, function(res) {
         res.pipe(stream);
-        console.log(fn + '  download completed！');
+        console.log(imageName + '  download completed！');
     });
 }
